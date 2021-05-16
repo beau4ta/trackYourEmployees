@@ -1,0 +1,24 @@
+{
+  "name": "trackYourEmployees",
+  "version": "1.0.0",
+  "description": "As a business owner I want to be able to view and manage the departments, roles, and employees in my company So that I can organize and plan my business.",
+  "main": "employeeCode.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beau4ta/trackYourEmployees.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beau4ta/trackYourEmployees/issues"
+  },
+  "homepage": "https://github.com/beau4ta/trackYourEmployees#readme",
+  "dependencies": {
+    "inquirer": "^8.0.0",
+    "mysql": "^2.18.1"
+  }
+}
