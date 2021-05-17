@@ -65,7 +65,7 @@ const promptUser = async () => {
                     break;
 
                 case 'EXIT':
-                    return;
+                    return exitPrompt();
                     break;
             };
         });
@@ -123,22 +123,23 @@ const addEmployee = async => {
                 {
                     name: "role",
                     type: "input",
-                    message: "What is their role?",
+                    message: "What is their role ID?",
                     choices: roleArr
                 },
             ])
             .then((answer) => {
-                var roleID = roleArr.indexOf(answer.role) + 1;
+                // var roleID = roleArr.indexOf(answer.role) + 1;
                 connection.query(
                     'INSERT INTO employee SET ?',
                     {
                         first_name: answer.first,
                         last_name: answer.last,
-                        role_id: roleID,
+                        role_id: answer.role,
                     },
                     (err) => {
                         if (err) throw err;
                         console.table(answer);
+                        console.log('Employee added!')
                         promptUser();
                     })
             })
@@ -163,6 +164,7 @@ const addDepartment = async () => {
                 (err) => {
                     if (err) throw err;
                     console.table(response);
+                    console.log('Department added!')
                     promptUser();
                 }
             )
@@ -170,7 +172,7 @@ const addDepartment = async () => {
 };
 
 const addRole = async () => {
-    connection.query("SELECT role.title AS Title, role.salary AS salary FROM role", (err, res) => {
+    connection.query("SELECT role.title AS Title, role.salary AS salary, role.department_id AS department_id FROM role")
         inquirer
             .prompt([
                 {
@@ -184,7 +186,9 @@ const addRole = async () => {
                     message: 'What is the salary in this role?'
                 },
                 {
-                    name: 'department'
+                    name: 'department',
+                    type: 'input',
+                    message: 'What is the department ID?'
                 }
             ])
             .then((response) => {
@@ -193,16 +197,46 @@ const addRole = async () => {
                     {
                         title: response.role,
                         salary: response.salary,
+                        department_id: response.department
                     },
                     (err) => {
                         if (err) throw err;
                         console.table(response);
+                        console.log("Role added!");
                         promptUser();
                     })
             })
+    }
+
+const updateRole = async () => {
+    inquirer
+        .prompt(
+            {
+                name: 'employee',
+                type: 'input',
+                message: 'Enter employee first name.'
+            },
+            {
+                name: 'role',
+                type: 'input',
+                message: 'Enter a role ID.'
+            }
+        )
+        .then((response) => {
+            connection.query('UPDATE employee SET role_id = ? WHERE first_name = ? SELECT employee.first_name, role.title FROM employee JOIN role ON employee.role_id',
+            {
+                first_name: response.employee,
+                role_id: response.role
+            }),
+            (err) => {
+                if (err) throw err;
+                console.table(response);
+                console.log('Employee role updated!');
+                promptUser();
+        }
     })
 }
 
-const updateRole = async () => {
-
+const exitPrompt = () => {
+    process.exit();
 }
