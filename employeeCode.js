@@ -209,7 +209,7 @@ const addRole = async () => {
     }
 
 const updateRole = async () => {
-    inquirer
+   await inquirer
         .prompt(
             {
                 name: 'employee',
@@ -223,11 +223,8 @@ const updateRole = async () => {
             }
         )
         .then((response) => {
-            connection.query('UPDATE employee SET role_id = ? WHERE first_name = ? SELECT employee.first_name, role.title FROM employee JOIN role ON employee.role_id',
-            {
-                first_name: response.employee,
-                role_id: response.role
-            }),
+           connection.query('UPDATE employee SET role_id = ? WHERE first_name = ?',
+            [response.employee, response.role]);
             (err) => {
                 if (err) throw err;
                 console.table(response);
