@@ -128,7 +128,6 @@ const addEmployee = async => {
                 },
             ])
             .then((answer) => {
-                // var roleID = roleArr.indexOf(answer.role) + 1;
                 connection.query(
                     'INSERT INTO employee SET ?',
                     {
@@ -210,7 +209,7 @@ const addRole = async () => {
 
 const updateRole = async () => {
    await inquirer
-        .prompt(
+        .prompt([
             {
                 name: 'employee',
                 type: 'input',
@@ -221,17 +220,15 @@ const updateRole = async () => {
                 type: 'input',
                 message: 'Enter a role ID.'
             }
-        )
+        ])
         .then((response) => {
-           connection.query('UPDATE employee SET role_id = ? WHERE first_name = ?',
-            [response.employee, response.role]);
-            (err) => {
-                if (err) throw err;
+           connection.query('UPDATE employee SET ? WHERE ?',
+            [{role_id: response.role}, {first_name: response.employee}]),
                 console.table(response);
                 console.log('Employee role updated!');
                 promptUser();
         }
-    })
+    )
 }
 
 const exitPrompt = () => {

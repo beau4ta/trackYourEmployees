@@ -34,4 +34,7 @@
   
   Email me with any questions: beaufortier13@gmail.com
   
+  Here is a link to the walkthrough video: https://drive.google.com/file/d/1vphTHxrdwW_qUT7yl97X_z4sGGXT4Ktz/view
+
+  <img src="assets/trackerSS.png">
 
