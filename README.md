@@ -13,7 +13,7 @@
   - [Questions](#questions)
 
   ## Installation
-  npm install, also install inquirer and mmysql dependencies
+  npm install, also install inquirer and mysql dependencies
 
   ## Usage
   npm start
